@@ -139,15 +139,88 @@
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
+                margin-top: 80px;
+            }
+            .page-title {
+                font-size: 1.8em;
+                padding: 20px 10px;
             }
             .service-row {
                 flex-direction: column;
             }
             .service-box {
                 margin-bottom: 20px;
+                padding: 20px;
             }
+            .platform-diagram {
+                padding: 20px;
+            }
+            .service-detail {
+                padding: 20px !important;
+            }
+            .service-detail h2 {
+                font-size: 1.8em !important;
+            }
+            .service-detail .grid-container {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            .service-detail [style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            .service-detail [style*="background: rgba(255,255,255,0.03)"] {
+                margin-bottom: 20px;
+            }
+            .process-steps {
+                flex-direction: column !important;
+                gap: 30px !important;
+            }
+            .process-step {
+                width: 100% !important;
+                text-align: left !important;
+                padding-left: 50px !important;
+                position: relative !important;
+            }
+            .process-step::before {
+                left: 0 !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+            }
+            .process-step .arrow {
+                display: none !important;
+            }
+            nav {
+                flex-wrap: wrap;
+            }
+            nav a {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr !important;
+                text-align: center !important;
+            }
+            .footer-grid > div {
+                text-align: center !important;
+            }
+        }
+
+        @media (max-width: 480px) {
             .page-title {
-                font-size: 2em;
+                font-size: 1.5em;
+            }
+            .service-title {
+                font-size: 1.2em;
+            }
+            .service-description {
+                font-size: 0.9em;
+            }
+            .service-detail h2 {
+                font-size: 1.5em !important;
+            }
+            .service-detail h2 span {
+                font-size: 0.6em !important;
             }
         }
     </style>
