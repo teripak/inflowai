@@ -9,183 +9,295 @@
             font-family: 'Noto Sans KR', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #000000;
             line-height: 1.6;
+            color: #ffffff;
+            font-size: 15px;
         }
         header {
-            background-color: #222;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        nav {
-            background-color: #333;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #ffffff;
             padding: 15px;
             text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
         nav a {
-            color: white;
+            color: #ffffff;
             text-decoration: none;
-            padding: 10px 20px;
-            margin: 0 5px;
+            padding: 8px 16px;
             border-radius: 4px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.95em;
         }
         nav a:hover {
-            background-color: #555;
+            background-color: rgba(255, 255, 255, 0.1);
         }
         .container {
             max-width: 1200px;
-            margin: 20px auto;
+            margin: 100px auto 0;
             padding: 20px;
-            background: white;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
         }
-        h1, h2 {
-            color: #333;
+        .page-title {
+            font-size: 2.5em;
+            color: #ffffff;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: 700;
         }
-        .service {
-            background: #e9ecef;
+        .platform-diagram {
+            background: linear-gradient(45deg, #000000, #1a1a1a);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .platform-diagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,123,255,0.1), rgba(0,123,255,0.05));
+            pointer-events: none;
+        }
+        .diagram-title {
+            font-size: 2em;
+            color: #ffffff;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .diagram-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+        }
+        .service-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            gap: 20px;
+        }
+        .service-box {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .service-box:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0,123,255,0.2);
+        }
+        .service-title {
+            font-size: 1.3em;
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .service-description {
+            color: #cccccc;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid rgba(255, 255, 255, 0.1);
             margin: 20px 0;
-            padding: 20px;
-            border-left: 5px solid #007bff;
-            border-radius: 4px;
-            transition: transform 0.3s;
         }
-        .service:hover {
-            transform: translateX(10px);
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: #666;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9em;
         }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background: #0056b3;
-        }
-        .service-features {
-            margin-top: 15px;
-            padding-left: 20px;
-        }
-        .service-features li {
-            margin: 10px 0;
-        }
-        .price-section {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 4px;
-        }
-        .implementation-steps {
-            margin-top: 20px;
-            padding: 15px;
-            background: #e9ecef;
-            border-radius: 4px;
-        }
-        .implementation-steps h3 {
-            color: #007bff;
-            margin-top: 0;
-        }
-        .implementation-steps ol {
-            padding-left: 20px;
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .service-row {
+                flex-direction: column;
+            }
+            .service-box {
+                margin-bottom: 20px;
+            }
+            .page-title {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>InFlow AI</h1>
-        <p>서비스 구성</p>
+        <nav>
+            <a href="index.html">홈</a>
+            <a href="features.html">특장점</a>
+            <a href="services.html">서비스 구성</a>
+        </nav>
     </header>
 
-    <nav>
-        <a href="index.html">홈</a>
-        <a href="features.html">특장점</a>
-        <a href="services.html">서비스 구성</a>
-    </nav>
-
     <div class="container">
-        <h2>InFlow AI 서비스 구성</h2>
-        
-        <div id="basic" class="service">
-            <h3>InFlow Basic</h3>
-            <p>웹페이지에 연계된 AI 챗봇 서비스, 자연어 상담 및 지식 검색 기능 제공.</p>
-            <ul class="service-features">
-                <li>실시간 고객 상담 지원</li>
-                <li>자연어 기반 지식 검색</li>
-                <li>24/7 자동 응답 시스템</li>
-                <li>다국어 지원</li>
-            </ul>
-            <div class="implementation-steps">
-                <h3>구현 단계</h3>
-                <ol>
-                    <li>웹사이트 분석 및 통합 포인트 선정</li>
-                    <li>지식 베이스 구축</li>
-                    <li>AI 모델 학습 및 최적화</li>
-                    <li>테스트 및 배포</li>
-                </ol>
-            </div>
-            <div class="price-section">
-                <p>월 50만원부터 시작</p>
-                <a href="contact.html" class="btn">문의하기</a>
+        <h1 class="page-title">InFlow AI 서비스 플랫폼</h1>
+
+        <div class="platform-diagram">
+            <div class="diagram-content">
+                <div class="service-row">
+                    <div class="service-box">
+                        <div class="service-title">InFlow Basic</div>
+                        <div class="service-description">
+                            웹페이지 연계 AI 챗봇<br>
+                            기업 홈페이지 임베딩<br>
+                            질의응답 도메인 처리
+                        </div>
+                    </div>
+                    <div class="service-box">
+                        <div class="service-title">InFlow Assist</div>
+                        <div class="service-description">
+                            AI 기반 업무 보조 도구<br>
+                            RAG 기반 지식 처리<br>
+                            실시간 데이터 연동
+                        </div>
+                    </div>
+                    <div class="service-box">
+                        <div class="service-title">InFlow Studio</div>
+                        <div class="service-description">
+                            사내 AI 개발 플랫폼<br>
+                            셀프서비스 프레임워크<br>
+                            커스텀 AI 모델 구축
+                        </div>
+                    </div>
+                </div>
+                <div class="arrow-down"></div>
+                <div class="service-row">
+                    <div class="service-box" style="background: rgba(0,123,255,0.1);">
+                        <div class="service-title">통합 RAG 엔진</div>
+                        <div class="service-description">
+                            기업 내부 문서 처리<br>
+                            실시간 데이터 업데이트<br>
+                            지식 검색 및 추출
+                        </div>
+                    </div>
+                </div>
+                <div class="arrow-down"></div>
+                <div class="service-row">
+                    <div class="service-box" style="flex: 1;">
+                        <div class="service-title">기업 데이터</div>
+                        <div class="service-description">
+                            문서 / 지식 DB<br>
+                            레거시 시스템
+                        </div>
+                    </div>
+                    <div class="service-box" style="flex: 1;">
+                        <div class="service-title">외부 시스템</div>
+                        <div class="service-description">
+                            API 연동<br>
+                            실시간 데이터
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="assist" class="service">
-            <h3>InFlow Assist</h3>
-            <p>업무 지원 AI 에이전트, RAG 기반 지식 검색 및 AI 응답 최적화.</p>
-            <ul class="service-features">
-                <li>RAG 기반 맞춤형 지식 검색</li>
-                <li>업무 프로세스 자동화</li>
-                <li>실시간 데이터 분석</li>
-                <li>API 연동 지원</li>
-            </ul>
-            <div class="implementation-steps">
-                <h3>구현 단계</h3>
-                <ol>
-                    <li>업무 프로세스 분석</li>
-                    <li>데이터베이스 구축</li>
-                    <li>AI 에이전트 개발</li>
-                    <li>시스템 통합 및 테스트</li>
-                </ol>
-            </div>
-            <div class="price-section">
-                <p>월 100만원부터 시작</p>
-                <a href="contact.html" class="btn">문의하기</a>
-            </div>
-        </div>
+        <div class="service-detail" style="margin-top: 80px; padding: 40px; background: linear-gradient(45deg, #000000, #1a1a1a); border-radius: 20px; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(0,123,255,0.05), transparent); pointer-events: none;"></div>
+            
+            <h2 style="font-size: 2.5em; color: #ffffff; margin-bottom: 30px; text-align: left;">
+                InFlow Basic
+                <span style="display: block; font-size: 0.5em; color: #0088ff; margin-top: 10px;">홈페이지에 임베딩된 챗봇, 질의에 대한 답변은 도메인 서버에서 처리</span>
+            </h2>
 
-        <div id="studio" class="service">
-            <h3>InFlow Studio</h3>
-            <p>기업 내부 AI 개발을 위한 프레임워크, 온프레미스 환경 지원.</p>
-            <ul class="service-features">
-                <li>온프레미스 배포 지원</li>
-                <li>맞춤형 AI 모델 개발</li>
-                <li>보안 강화 기능</li>
-                <li>기술 지원 및 교육</li>
-            </ul>
-            <div class="implementation-steps">
-                <h3>구현 단계</h3>
-                <ol>
-                    <li>요구사항 분석 및 설계</li>
-                    <li>개발 환경 구축</li>
-                    <li>맞춤형 모델 개발</li>
-                    <li>배포 및 유지보수</li>
-                </ol>
-            </div>
-            <div class="price-section">
-                <p>맞춤형 견적</p>
-                <a href="contact.html" class="btn">문의하기</a>
-            </div>
-        </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;">
+                <div style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="color: #0088ff; font-size: 1.3em; margin-bottom: 20px;">주요 기능</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 15px; color: #ffffff; display: flex; align-items: center;">
+                            <span style="display: inline-block; width: 6px; height: 6px; background: #0088ff; margin-right: 15px; border-radius: 50%;"></span>
+                            웹사이트 방문자와의 자연스러운 대화형 인터페이스
+                        </li>
+                        <li style="margin-bottom: 15px; color: #ffffff; display: flex; align-items: center;">
+                            <span style="display: inline-block; width: 6px; height: 6px; background: #0088ff; margin-right: 15px; border-radius: 50%;"></span>
+                            기업 특화 데이터 기반 정확한 응답 생성
+                        </li>
+                        <li style="margin-bottom: 15px; color: #ffffff; display: flex; align-items: center;">
+                            <span style="display: inline-block; width: 6px; height: 6px; background: #0088ff; margin-right: 15px; border-radius: 50%;"></span>
+                            24/7 실시간 고객 응대 가능
+                        </li>
+                    </ul>
+                </div>
 
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="index.html" class="btn">메인 페이지로 이동</a>
+                <div style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="color: #0088ff; font-size: 1.3em; margin-bottom: 20px;">도입 효과</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 15px; color: #ffffff; display: flex; align-items: center;">
+                            <span style="display: inline-block; width: 6px; height: 6px; background: #0088ff; margin-right: 15px; border-radius: 50%;"></span>
+                            고객 응대 시간 단축 및 만족도 향상
+                        </li>
+                        <li style="margin-bottom: 15px; color: #ffffff; display: flex; align-items: center;">
+                            <span style="display: inline-block; width: 6px; height: 6px; background: #0088ff; margin-right: 15px; border-radius: 50%;"></span>
+                            운영 비용 절감 및 업무 효율성 증대
+                        </li>
+                        <li style="margin-bottom: 15px; color: #ffffff; display: flex; align-items: center;">
+                            <span style="display: inline-block; width: 6px; height: 6px; background: #0088ff; margin-right: 15px; border-radius: 50%;"></span>
+                            데이터 기반 고객 인사이트 확보
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 30px; background: rgba(0,123,255,0.05); border-radius: 15px; border: 1px solid rgba(0,123,255,0.1);">
+                <h3 style="color: #0088ff; font-size: 1.3em; margin-bottom: 20px;">구축 프로세스</h3>
+                <div style="display: flex; justify-content: space-between; gap: 20px;">
+                    <div style="flex: 1; text-align: center; position: relative;">
+                        <div style="color: #ffffff; font-weight: 600; margin-bottom: 10px;">Step 1</div>
+                        <div style="color: #cccccc;">기업 데이터 분석<br>및 수집</div>
+                        <div style="position: absolute; right: -10px; top: 50%; transform: translateY(-50%); color: #0088ff;">→</div>
+                    </div>
+                    <div style="flex: 1; text-align: center; position: relative;">
+                        <div style="color: #ffffff; font-weight: 600; margin-bottom: 10px;">Step 2</div>
+                        <div style="color: #cccccc;">챗봇 엔진<br>커스터마이징</div>
+                        <div style="position: absolute; right: -10px; top: 50%; transform: translateY(-50%); color: #0088ff;">→</div>
+                    </div>
+                    <div style="flex: 1; text-align: center; position: relative;">
+                        <div style="color: #ffffff; font-weight: 600; margin-bottom: 10px;">Step 3</div>
+                        <div style="color: #cccccc;">웹사이트<br>연동 및 테스트</div>
+                        <div style="position: absolute; right: -10px; top: 50%; transform: translateY(-50%); color: #0088ff;">→</div>
+                    </div>
+                    <div style="flex: 1; text-align: center;">
+                        <div style="color: #ffffff; font-weight: 600; margin-bottom: 10px;">Step 4</div>
+                        <div style="color: #cccccc;">실시간 모니터링<br>및 최적화</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2024 InFlow AI. All rights reserved.</p>
+    </footer>
 </body>
 </html> 
