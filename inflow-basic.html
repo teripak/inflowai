@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inflow Basic - AI 챗봇 서비스</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: #000;
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1001;
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            top: 100%;
+            left: 0;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            display: block;
+            transition: background 0.3s;
+        }
+        
+        .dropdown-content a:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero .description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.85;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #000;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #333;
+            transform: translateY(-2px);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e9ecef;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* Comparison Section */
+        .comparison {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .comparison-text {
+            padding: 0 1rem;
+        }
+        
+        .comparison-text h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+        
+        .comparison-text p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .comparison-points {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .comparison-points li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .comparison-points li:last-child {
+            border-bottom: none;
+        }
+        
+        .comparison-points .icon {
+            width: 40px;
+            height: 40px;
+            background: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .comparison-visual {
+            position: relative;
+            text-align: center;
+        }
+        
+        .website-mockup {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mockup-header {
+            background: #333;
+            height: 40px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .mockup-dots {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .mockup-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #28ca42; }
+        
+        .mockup-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0 0 10px 10px;
+            text-align: left;
+        }
+        
+        .chat-bubble {
+            background: #007bff;
+            color: white;
+            padding: 1rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            position: relative;
+            display: inline-block;
+            max-width: 80%;
+        }
+        
+        .chat-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid #007bff;
+        }
+        
+        /* Process Section */
+        .process {
+            padding: 0 0 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .process-step::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .process-steps {
+            counter-reset: step-counter;
+        }
+        
+        .process-step h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            color: #1a1a1a;
+        }
+        
+        .process-step p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            text-align: center;
+            color: #666;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Inflow AI</a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="inflow-basic.html" class="active">Inflow Basic</a></li>
+                <li><a href="inflow-assist.html">Inflow Assist</a></li>
+                <li><a href="inflow-studio.html">Inflow Studio</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">체험 ▼</a>
+                    <div class="dropdown-content">
+                        <a href="experience-basic.html">Inflow Basic 체험</a>
+                        <a href="experience-assist.html">Inflow Assist 체험</a>
+                    </div>
+                </li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>일반 홈페이지를 AI 홈페이지로</h1>
+            <p class="subtitle">개인화된 AI 상담사가 내재된 스마트 웹사이트</p>
+            <p class="description">
+                단순한 하이퍼링크를 클릭하며 정보를 찾는 시대는 끝났습니다.<br>
+                "나"를 기억하고, 질문을 분석하여 맞춤형 콘텐츠를 생성하는 AI 홈페이지를 경험해보세요.
+            </p>
+            <div class="cta-buttons">
+                <a href="experience-basic.html" class="btn btn-primary">무료 체험하기</a>
+                <a href="contact.html" class="btn btn-secondary">상담 문의</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="comparison">
+        <div class="container">
+            <div class="comparison-container">
+                <div class="comparison-text">
+                    <h2>일반 홈페이지 VS AI 홈페이지</h2>
+                    <p>
+                        기존의 정적인 홈페이지를 넘어, 방문자와 지능적으로 상호작용하는 
+                        AI 홈페이지로 비즈니스를 혁신하세요.
+                    </p>
+                    <ul class="comparison-points">
+                        <li>
+                            <div class="icon"><i class="fas fa-user-check"></i></div>
+                            <div>
+                                <strong>개인화된 경험</strong><br>
+                                각 방문자의 질문과 관심사에 맞춘 맞춤형 웹페이지 자동 생성
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                            <div>
+                                <strong>프리젠테이션 답변</strong><br>
+                                텍스트, 이미지, 동영상, 3D 모델을 활용한 효과적인 답변
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon"><i class="fas fa-memory"></i></div>
+                            <div>
+                                <strong>방문 기록 기억</strong><br>
+                                이전 방문 기록과 질문을 기억하여 연속적인 대화 지원
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon"><i class="fas fa-handshake"></i></div>
+                            <div>
+                                <strong>업무 담당자 느낌</strong><br>
+                                마치 회사 담당자가 직접 응대하는 듯한 개인화된 서비스
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-visual">
+                    <div class="website-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-dots">
+                                <div class="mockup-dot dot-red"></div>
+                                <div class="mockup-dot dot-yellow"></div>
+                                <div class="mockup-dot dot-green"></div>
+                            </div>
+                        </div>
+                        <div class="mockup-content">
+                            <h4>AI 홈페이지 예시</h4>
+                            <p>안녕하세요! 김철수님, 다시 방문해 주셔서 감사합니다.</p>
+                            <div class="chat-bubble">
+                                지난번 문의하신 제품 A에 대한 추가 정보를 준비했습니다. 
+                                맞춤형 프리젠테이션으로 설명드리겠습니다.
+                            </div>
+                            <p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">
+                                💡 방문자의 질문에 따라 실시간으로 콘텐츠가 생성됩니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Inflow Basic 핵심 기능</h2>
+            <p class="section-subtitle">
+                기존 홈페이지를 AI 홈페이지로 변환하는 혁신적인 기능들
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-globe"></i></div>
+                    <h3>동적 웹페이지 생성</h3>
+                    <p>
+                        방문자의 질문을 분석하여 필요한 정보를 담은 웹페이지를 실시간으로 생성합니다. 
+                        각 방문자에게 최적화된 맞춤형 콘텐츠를 제공합니다.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-desktop"></i></div>
+                    <h3>멀티미디어 프리젠테이션</h3>
+                    <p>
+                        단순한 텍스트 답변을 넘어, 이미지, 동영상, 3D 모델을 활용한 
+                        효과적인 프리젠테이션 콘텐츠를 자동 생성합니다.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-link"></i></div>
+                    <h3>기존 홈페이지 연동</h3>
+                    <p>
+                        기존 홈페이지를 그대로 유지하면서 AI 상담사 기능을 추가할 수 있습니다. 
+                        완전히 새로운 AI 홈페이지 구축도 가능합니다.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-user-cog"></i></div>
+                    <h3>개인화된 경험</h3>
+                    <p>
+                        각 방문자를 개별적으로 인식하고 기억합니다. 
+                        마치 전담 직원이 응대하는 것 같은 개인화된 서비스를 제공합니다.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-history"></i></div>
+                    <h3>방문 기록 관리</h3>
+                    <p>
+                        이전 방문 기록과 질문 내용을 기억하여 연속적인 대화를 지원합니다. 
+                        방문할 때마다 더 나은 서비스를 제공합니다.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>실시간 반응형 답변</h3>
+                    <p>
+                        방문자의 질문에 즉시 반응하여 관련 정보를 수집하고 
+                        가장 적절한 형태의 답변을 실시간으로 제공합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process">
+        <div class="container">
+            <h2 class="section-title">구축 프로세스</h2>
+            <p class="section-subtitle">
+                간단한 4단계로 AI 홈페이지를 구축하세요
+            </p>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <h3>데이터 분석</h3>
+                    <p>
+                        기존 홈페이지와 기업 데이터를 분석하여 
+                        AI 학습을 위한 최적의 데이터셋을 구성합니다.
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <h3>AI 모델 커스터마이징</h3>
+                    <p>
+                        기업의 특성과 업무 환경에 맞춘 
+                        전용 AI 모델을 구성하고 학습시킵니다.
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <h3>홈페이지 연동</h3>
+                    <p>
+                        기존 홈페이지에 AI 기능을 연동하거나 
+                        새로운 AI 홈페이지를 구축합니다.
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <h3>테스트 및 최적화</h3>
+                    <p>
+                        실제 운영 환경에서 테스트하며 
+                        성능을 최적화하고 지속적으로 개선합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>지금 바로 AI 홈페이지를 경험해보세요</h2>
+            <p>무료 체험으로 Inflow Basic의 강력한 기능을 직접 확인해보세요.</p>
+            <div class="cta-buttons">
+                <a href="experience-basic.html" class="btn btn-primary">무료 체험하기</a>
+                <a href="contact.html" class="btn btn-secondary">상담 문의</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Inflow AI</h3>
+                    <p>(04781) 서울시 성동구 성수이로7길 7, 1103호<br>
+                    (한라시그마밸리2차)</p>
+                    <p>전화: 02-462-3737<br>
+                    이메일: ch@wizbase.co.kr</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>서비스</h3>
+                    <p><a href="inflow-basic.html">Inflow Basic</a></p>
+                    <p><a href="inflow-assist.html">Inflow Assist</a></p>
+                    <p><a href="inflow-studio.html">Inflow Studio</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>체험</h3>
+                    <p><a href="experience-basic.html">Inflow Basic 체험</a></p>
+                    <p><a href="experience-assist.html">Inflow Assist 체험</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>지원</h3>
+                    <p><a href="contact.html">문의하기</a></p>
+                    <p><a href="mailto:ch@wizbase.co.kr">이메일 문의</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Inflow AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

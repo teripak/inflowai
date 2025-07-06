@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inflow Studio - AI 개발 플랫폼</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            word-break: keep-all;
+            overflow-wrap: break-word;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: #000;
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1001;
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            top: 100%;
+            left: 0;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            display: block;
+            transition: background 0.3s;
+        }
+        
+        .dropdown-content a:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero .description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.85;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #000;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            margin-left: 1rem;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #333;
+            transform: translateY(-2px);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e9ecef;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        .feature-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            color: #333;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        /* Platform Section */
+        .platform {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .platform-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .platform-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+        
+        .platform-content p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .platform-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .platform-features li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .platform-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .platform-features .icon {
+            width: 40px;
+            height: 40px;
+            background: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .platform-visual {
+            position: relative;
+            text-align: center;
+        }
+        
+        .studio-mockup {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mockup-header {
+            background: #333;
+            height: 40px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .mockup-dots {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .mockup-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot-red { background: #ff5f57; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #28ca42; }
+        
+        .mockup-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0 0 10px 10px;
+            text-align: left;
+        }
+        
+        .workflow-step {
+            background: #000;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 0.5rem 0;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        
+        .workflow-arrow {
+            text-align: center;
+            color: #666;
+            margin: 0.5rem 0;
+        }
+        
+        /* Process Flow Styles */
+        .process-flow {
+            margin: 1.5rem 0;
+        }
+        
+        .flow-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .flow-row.reverse {
+            flex-direction: row-reverse;
+        }
+        
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f8f9fa;
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 0.8rem 0.5rem;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .step-number {
+            background: #000;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+        
+        .step-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.2;
+        }
+        
+        .flow-arrow {
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .flow-down {
+            text-align: center;
+            color: #666;
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+        }
+        
+        /* Process Section */
+        .process {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .process-step::before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .process-steps {
+            counter-reset: step-counter;
+        }
+        
+        .process-step h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            color: #1a1a1a;
+        }
+        
+        .process-step p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* Security Section */
+        .security {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .security-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+        }
+        
+        .security-card:hover {
+            border-color: #000;
+            transform: translateY(-5px);
+        }
+        
+        .security-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .security-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        .security-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
+            text-align: center;
+            color: #666;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .platform-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .security-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            /* Process Flow Mobile */
+            .flow-row {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .flow-row.reverse {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 0.5rem 0;
+            }
+            
+            .flow-down {
+                display: none;
+            }
+            
+            .flow-step {
+                min-width: 120px;
+                width: 100%;
+            }
+            
+            .step-name {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">Inflow AI</a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="inflow-basic.html">Inflow Basic</a></li>
+                <li><a href="inflow-assist.html">Inflow Assist</a></li>
+                <li><a href="inflow-studio.html" class="active">Inflow Studio</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">체험 ▼</a>
+                    <div class="dropdown-content">
+                        <a href="experience-basic.html">Inflow Basic 체험</a>
+                        <a href="experience-assist.html">Inflow Assist 체험</a>
+                    </div>
+                </li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>AI를 직접 만드는 시대</h1>
+            <p class="subtitle">코딩 없이 AI 챗봇과 에이전트를 구축하는 노코드 플랫폼</p>
+            <p class="description">
+                민감한 내부 데이터도 안전하게 처리하면서<br>
+                기업만의 맞춤형 AI 솔루션을 직접 구축해보세요.
+            </p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-primary">무료 상담하기</a>
+                <a href="contact.html" class="btn btn-secondary">데모 요청</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Inflow Studio 핵심 기능</h2>
+            <p class="section-subtitle">
+                기업의 모든 AI 요구사항을 만족하는 통합 개발 플랫폼
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI 챗봇 구축</h3>
+                    <p>
+                        코딩 없이 드래그 앤 드롭으로 AI 챗봇을 구축하세요. 
+                        기업의 문서와 데이터를 업로드하고 임베딩하여 전문적인 AI 상담사를 만들 수 있습니다.
+                    </p>
+                    <ul class="feature-list">
+                        <li>문서 업로드 및 자동 임베딩</li>
+                        <li>인덱싱 및 검색 최적화</li>
+                        <li>대화 시나리오 설계</li>
+                        <li>다국어 지원</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>AI 에이전트 개발</h3>
+                    <p>
+                        복잡한 업무 프로세스를 AI 에이전트로 자동화하세요. 
+                        워크플로우를 시각적으로 설계하고 데이터를 연결하여 지능적인 업무 처리를 구현합니다.
+                    </p>
+                    <ul class="feature-list">
+                        <li>비주얼 워크플로우 설계</li>
+                        <li>데이터 소스 연결</li>
+                        <li>프로세스 자동화</li>
+                        <li>성능 모니터링</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>보안 데이터 처리</h3>
+                    <p>
+                        민감한 내부 데이터를 안전하게 처리하고 관리하세요. 
+                        온프레미스 환경에서도 구동 가능한 완전한 보안 솔루션을 제공합니다.
+                    </p>
+                    <ul class="feature-list">
+                        <li>온프레미스 배포 지원</li>
+                        <li>데이터 암호화</li>
+                        <li>접근 권한 관리</li>
+                        <li>감사 로그 기록</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-tools"></i></div>
+                    <h3>노코드 개발환경</h3>
+                    <p>
+                        전문적인 프로그래밍 지식 없이도 강력한 AI 솔루션을 개발할 수 있습니다. 
+                        직관적인 인터페이스로 누구나 쉽게 AI를 구축할 수 있습니다.
+                    </p>
+                    <ul class="feature-list">
+                        <li>드래그 앤 드롭 인터페이스</li>
+                        <li>템플릿 기반 개발</li>
+                        <li>실시간 미리보기</li>
+                        <li>원클릭 배포</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-database"></i></div>
+                    <h3>데이터 관리</h3>
+                    <p>
+                        다양한 형태의 데이터를 효율적으로 관리하고 AI 학습에 활용하세요. 
+                        실시간 데이터 업데이트와 버전 관리를 지원합니다.
+                    </p>
+                    <ul class="feature-list">
+                        <li>다양한 파일 형식 지원</li>
+                        <li>실시간 데이터 동기화</li>
+                        <li>데이터 버전 관리</li>
+                        <li>품질 검증</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3>통합 및 배포</h3>
+                    <p>
+                        개발한 AI 솔루션을 기존 시스템과 쉽게 통합하고 배포하세요. 
+                        API 연동부터 웹사이트 임베딩까지 다양한 배포 옵션을 제공합니다.
+                    </p>
+                    <ul class="feature-list">
+                        <li>API 자동 생성</li>
+                        <li>웹사이트 임베딩</li>
+                        <li>시스템 연동</li>
+                        <li>스케일링 지원</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="platform">
+        <div class="container">
+            <div class="platform-container">
+                <div class="platform-content">
+                    <h2>개발부터 배포까지 모든 것을 한 곳에서</h2>
+                    <p>
+                        Inflow Studio는 AI 개발의 모든 단계를 지원하는 통합 플랫폼입니다. 
+                        복잡한 설정 없이 바로 시작할 수 있으며, 기업의 요구사항에 맞춘 
+                        맞춤형 AI 솔루션을 빠르게 구축할 수 있습니다.
+                    </p>
+                    <ul class="platform-features">
+                        <li>
+                            <div class="icon"><i class="fas fa-mouse-pointer"></i></div>
+                            <div>
+                                <strong>데이터 업로드</strong><br>
+                                다양한 형태의 기업 데이터를 쉽게 업로드하고 관리
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon"><i class="fas fa-layer-group"></i></div>
+                            <div>
+                                <strong>AI 모델 설계</strong><br>
+                                비주얼 인터페이스로 AI 모델과 워크플로우 설계
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon"><i class="fas fa-play-circle"></i></div>
+                            <div>
+                                <strong>테스트 및 최적화</strong><br>
+                                실시간 테스트와 성능 최적화 기능 제공
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon"><i class="fas fa-link"></i></div>
+                            <div>
+                                <strong>원클릭 배포</strong><br>
+                                완성된 AI 솔루션을 바로 배포하고 운영
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="platform-visual">
+                    <div class="studio-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-dots">
+                                <div class="mockup-dot dot-red"></div>
+                                <div class="mockup-dot dot-yellow"></div>
+                                <div class="mockup-dot dot-green"></div>
+                            </div>
+                        </div>
+                        <div class="mockup-content">
+                            <h4>AI 구축 프로세스 - 6단계</h4>
+                            <div class="process-flow">
+                                <div class="flow-row">
+                                    <div class="flow-step">
+                                        <div class="step-number">1</div>
+                                        <div class="step-name">프로젝트 초기화</div>
+                                    </div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step">
+                                        <div class="step-number">2</div>
+                                        <div class="step-name">데이터 수집</div>
+                                    </div>
+                                    <div class="flow-arrow">→</div>
+                                    <div class="flow-step">
+                                        <div class="step-number">3</div>
+                                        <div class="step-name">지식 베이스</div>
+                                    </div>
+                                </div>
+                                <div class="flow-down">↓</div>
+                                <div class="flow-row reverse">
+                                    <div class="flow-step">
+                                        <div class="step-number">6</div>
+                                        <div class="step-name">배포 & 모니터링</div>
+                                    </div>
+                                    <div class="flow-arrow">←</div>
+                                    <div class="flow-step">
+                                        <div class="step-number">5</div>
+                                        <div class="step-name">테스트 & 디버깅</div>
+                                    </div>
+                                    <div class="flow-arrow">←</div>
+                                    <div class="flow-step">
+                                        <div class="step-number">4</div>
+                                        <div class="step-name">워크플로우 설계</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">
+                                🔄 체계적인 6단계로 AI 솔루션을 완성하세요
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process">
+        <div class="container">
+            <h2 class="section-title">AI 구축 프로세스</h2>
+            <p class="section-subtitle">
+                간단한 6단계로 전문적인 AI 솔루션을 구축하세요
+            </p>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <h3>프로젝트 초기화</h3>
+                    <p>
+                        Start Node를 설정하고 입력 변수, 파일 업로드, 
+                        사용자 인터페이스를 정의합니다.
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <h3>데이터 수집 & 처리</h3>
+                    <p>
+                        Doc Extractor로 문서, 이미지, 오디오 등 
+                        다양한 형태의 데이터를 처리하고 추출합니다.
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <h3>지식 베이스 구축</h3>
+                    <p>
+                        Knowledge 노드로 벡터 데이터베이스를 
+                        구축하고 AI가 참조할 지식 데이터베이스를 생성합니다.
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <h3>워크플로우 설계</h3>
+                    <p>
+                        LLM, Tools, Parameter Extractor 등의 노드를 
+                        연결하여 복잡한 비즈니스 로직을 구현합니다.
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <h3>테스트 & 디버깅</h3>
+                    <p>
+                        실시간 디버깅으로 각 노드의 출력을 확인하고 
+                        전체 워크플로우를 검증합니다.
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <h3>배포 및 모니터링</h3>
+                    <p>
+                        API 엔드포인트로 배포하고 관찰 가능성 기능으로 
+                        성능과 사용량을 실시간 모니터링합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="security">
+        <div class="container">
+            <h2 class="section-title">엔터프라이즈 보안 기능</h2>
+            <p class="section-subtitle">
+                기업의 민감한 데이터를 안전하게 보호하는 보안 기능
+            </p>
+            
+            <div class="security-grid">
+                <div class="security-card">
+                    <div class="security-icon">🏢</div>
+                    <h3>온프레미스 배포</h3>
+                    <p>
+                        기업 내부 서버에 직접 설치하여 외부 노출 없이 
+                        안전하게 AI 솔루션을 운영할 수 있습니다.
+                    </p>
+                </div>
+                
+                <div class="security-card">
+                    <div class="security-icon">🔐</div>
+                    <h3>데이터 암호화</h3>
+                    <p>
+                        저장되는 모든 데이터는 강력한 암호화로 보호되며, 
+                        전송 중에도 안전하게 암호화됩니다.
+                    </p>
+                </div>
+                
+                <div class="security-card">
+                    <div class="security-icon">👥</div>
+                    <h3>접근 권한 관리</h3>
+                    <p>
+                        사용자별, 부서별 접근 권한을 세밀하게 관리하여 
+                        민감한 데이터의 보안을 유지합니다.
+                    </p>
+                </div>
+                
+                <div class="security-card">
+                    <div class="security-icon">📋</div>
+                    <h3>감사 로그</h3>
+                    <p>
+                        모든 사용자 활동과 데이터 접근 기록을 자동으로 
+                        로깅하여 보안 감사를 지원합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>나만의 AI 솔루션을 직접 구축해보세요</h2>
+            <p>전문가 지원과 함께 Inflow Studio로 AI 개발을 시작하세요.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-primary">무료 상담하기</a>
+                <a href="contact.html" class="btn btn-secondary">데모 요청</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Inflow AI</h3>
+                    <p>(04781) 서울시 성동구 성수이로7길 7, 1103호<br>
+                    (한라시그마밸리2차)</p>
+                    <p>전화: 02-462-3737<br>
+                    이메일: ch@wizbase.co.kr</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>서비스</h3>
+                    <p><a href="inflow-basic.html">Inflow Basic</a></p>
+                    <p><a href="inflow-assist.html">Inflow Assist</a></p>
+                    <p><a href="inflow-studio.html">Inflow Studio</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>체험</h3>
+                    <p><a href="experience-basic.html">Inflow Basic 체험</a></p>
+                    <p><a href="experience-assist.html">Inflow Assist 체험</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>지원</h3>
+                    <p><a href="contact.html">문의하기</a></p>
+                    <p><a href="mailto:ch@wizbase.co.kr">이메일 문의</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Inflow AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

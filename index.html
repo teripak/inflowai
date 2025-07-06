@@ -3,339 +3,602 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InFlow AI - RAG 기반 AI 에이전트 서비스</title>
+    <title>Inflow AI - 차세대 AI 플랫폼</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body {
-            font-family: 'Noto Sans KR', Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #ffffff;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #333;
-            font-size: 15px;
+            background-color: #fff;
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
+        
+        /* Header */
         header {
-            background-color: #ffffff;
-            color: #333;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
             position: fixed;
-            width: 100%;
             top: 0;
+            width: 100%;
             z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
+        
         nav {
-            background-color: #ffffff;
-            padding: 10px;
-            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
         }
-        nav a {
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
             color: #333;
             text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: all 0.3s;
             font-weight: 500;
-            font-size: 0.95em;
+            transition: color 0.3s;
         }
-        nav a:hover {
-            color: #000000;
-            background-color: #f8f9fa;
+        
+        .nav-links a:hover {
+            color: #000;
         }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1001;
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            top: 100%;
+            left: 0;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-content a {
+            color: #333;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            display: block;
+            transition: background 0.3s;
+        }
+        
+        .dropdown-content a:hover {
+            background: #f8f9fa;
+        }
+        
+        /* Main Hero Section */
         .hero {
-            background: #1a1a1a;
-            color: #ffffff;
-            padding: 100px 0 60px;
-            min-height: 500px;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+        
         .hero .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            gap: 40px;
-        }
-        .hero-content {
-            text-align: left;
-            padding-left: 20px;
-        }
-        .hero h1 {
-            font-size: 2.2em;
-            margin-bottom: 20px;
-            color: #ffffff;
-            line-height: 1.3;
-        }
-        .hero p {
-            font-size: 1.1em;
-            color: rgba(255, 255, 255, 0.9);
-            max-width: 600px;
-            margin: 0 0 30px;
-            line-height: 1.6;
-        }
-        .hero-illustration {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
             position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero .description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.85;
+        }
+        
+        .cta-buttons {
             display: flex;
+            gap: 1rem;
             justify-content: center;
-            align-items: center;
+            flex-wrap: wrap;
         }
-        .hero-illustration img {
-            max-width: 100%;
-            height: auto;
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
         }
-        .floating-icons {
-            position: absolute;
-            width: 100%;
-            height: 100%;
+        
+        .btn-primary {
+            background: #000;
+            color: white;
         }
-        .floating-icon {
-            position: absolute;
-            width: 40px;
-            height: 40px;
+        
+        .btn-primary:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
             background: white;
+            color: #333;
+            transform: translateY(-2px);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e9ecef;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        
+        .service-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .service-features li {
+            padding: 0.5rem 0;
+            color: #333;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #000;
+            font-weight: bold;
+        }
+        
+        .service-link {
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .service-link:hover {
+            color: #333;
+        }
+        
+        /* Why Choose Us Section */
+        .why-choose {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            font-size: 1.2em;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
         }
-        .icon-chat { top: 20%; left: 10%; }
-        .icon-call { top: 10%; right: 20%; }
-        .icon-voice { bottom: 30%; left: 5%; }
-        .icon-message { bottom: 20%; right: 15%; }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #000000;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 25px;
-            transition: all 0.3s;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            font-size: 0.95em;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        
+        .feature-item h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
         }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            background: #333333;
-        }
-        .btn.secondary {
-            background: transparent;
-            border: 2px solid #ffffff;
-            color: #ffffff;
-            margin-left: 15px;
-            box-shadow: none;
-        }
-        .btn.secondary:hover {
-            background: rgba(255,255,255,0.1);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-        .feature-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: center;
-            border: 1px solid #e0e0e0;
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-        }
-        .feature-card h3 {
-            color: #000000;
-            margin: 15px 0;
-            font-size: 1.3em;
-        }
-        .feature-card p {
+        
+        .feature-item p {
             color: #666;
-            margin-bottom: 20px;
-            font-size: 0.95em;
+            line-height: 1.8;
         }
+        
+        /* CTA Section */
         .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: white;
             text-align: center;
-            margin: 40px 0;
-            padding: 40px 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
         }
+        
         .cta-section h2 {
-            font-size: 2em;
-            margin-bottom: 15px;
-            color: #000000;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
+        
         .cta-section p {
-            font-size: 1.1em;
-            color: #666;
-            margin-bottom: 25px;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
         }
+        
+        /* Footer */
         footer {
-            background: #f8f9fa;
-            color: #666;
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 2rem;
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 40px;
-            border-top: 1px solid #e0e0e0;
-            font-size: 0.9em;
-        }
-        .demo-section {
-            text-align: center;
-            margin: 40px 0;
-            padding: 30px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-        }
-        .demo-section h2 {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            color: #000000;
-        }
-        .demo-section p {
             color: #666;
-            margin-bottom: 25px;
-            font-size: 1em;
         }
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .hero .container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .hero-content {
-                padding: 0 20px;
-            }
             .hero h1 {
-                font-size: 2em;
+                font-size: 2.5rem;
             }
-            .hero p {
-                font-size: 1em;
+            
+            .hero .subtitle {
+                font-size: 1.1rem;
             }
-            .btn {
-                padding: 10px 20px;
+            
+            .nav-links {
+                display: none;
             }
-        }
-        /* 히어로 섹션 외부의 버튼 스타일 */
-        .feature-card .btn, .demo-section .btn, .cta-section .btn {
-            background: #000000;
-            color: #ffffff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .feature-card .btn:hover, .demo-section .btn:hover, .cta-section .btn:hover {
-            background: #333333;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <a href="index.html">홈</a>
-            <a href="features.html">특장점</a>
-            <a href="services.html">서비스 구성</a>
+            <a href="index.html" class="logo">Inflow AI</a>
+            <ul class="nav-links">
+                <li><a href="index.html">홈</a></li>
+                <li><a href="inflow-basic.html">Inflow Basic</a></li>
+                <li><a href="inflow-assist.html">Inflow Assist</a></li>
+                <li><a href="inflow-studio.html">Inflow Studio</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">체험 ▼</a>
+                    <div class="dropdown-content">
+                        <a href="experience-basic.html">Inflow Basic 체험</a>
+                        <a href="experience-assist.html">Inflow Assist 체험</a>
+                    </div>
+                </li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
         </nav>
     </header>
 
-    <div class="hero">
+    <section class="hero">
         <div class="container">
-            <div class="hero-content">
-                <h1>대화형 AI 서비스를 위한<br>가장 완벽한 플랫폼</h1>
-                <p>단순 고객 문의부터 기업의 복잡한 비즈니스 워크플로우까지<br>대화형 AI 에이전트와의 상호 작용을 통해 자동화합니다.</p>
-                <div class="hero-buttons">
-                    <a href="services.html" class="btn">무료 데모 시작하기</a>
-                    <a href="contact.html" class="btn secondary">문의하기</a>
+            <h1>마치 수많은 내가 있는 것처럼<br>AI가 내 일을 알아서</h1>
+            <p class="subtitle">차세대 AI 플랫폼</p>
+            <p class="description">
+                Inflow AI는 단순한 챗봇을 넘어, 비즈니스 전체를 혁신하는 AI 플랫폼입니다.<br>
+                개인화된 AI 경험부터 전문적인 업무 지원까지, 모든 것을 하나의 플랫폼에서 경험해보세요.
+            </p>
+            <div class="cta-buttons">
+                <a href="experience-basic.html" class="btn btn-primary">무료 체험하기</a>
+                <a href="contact.html" class="btn btn-secondary">전문가 상담</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Inflow AI 서비스</h2>
+            <p class="section-subtitle">
+                3가지 핵심 서비스로 구성된 통합 AI 플랫폼
+            </p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Inflow Basic</h3>
+                    <p>
+                        기존 홈페이지에 직접 연동하여 AI 상담사 기능을 추가하는 서비스입니다. 
+                        단순한 텍스트 답변을 넘어 프리젠테이션 콘텐츠까지 제공합니다.
+                    </p>
+                    <ul class="service-features">
+                        <li>AI 홈페이지 구축</li>
+                        <li>개인화된 웹페이지 생성</li>
+                        <li>멀티미디어 프리젠테이션</li>
+                        <li>방문 기록 및 질문 기억</li>
+                    </ul>
+                    <a href="inflow-basic.html" class="service-link">자세히 보기 →</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-robot"></i></div>
+                    <h3>Inflow Assist</h3>
+                    <p>
+                        AI 기반 업무 지원 시스템으로, 복잡한 업무 프로세스를 자동화하고 
+                        효율성을 극대화하는 에이전트 서비스입니다.
+                    </p>
+                    <ul class="service-features">
+                        <li>자율적 업무 처리</li>
+                        <li>프로세스 자동화</li>
+                        <li>실시간 데이터 연동</li>
+                        <li>지능적 의사결정</li>
+                    </ul>
+                    <a href="inflow-assist.html" class="service-link">자세히 보기 →</a>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Inflow Studio</h3>
+                    <p>
+                        AI 챗봇과 에이전트를 직접 구축할 수 있는 개발 플랫폼입니다. 
+                        민감한 내부 데이터를 안전하게 처리하면서 맞춤형 AI를 구축하세요.
+                    </p>
+                    <ul class="service-features">
+                        <li>노코드 AI 개발</li>
+                        <li>문서 업로드 및 인덱싱</li>
+                        <li>프로세스 설계 도구</li>
+                        <li>안전한 내부 데이터 처리</li>
+                    </ul>
+                    <a href="inflow-studio.html" class="service-link">자세히 보기 →</a>
                 </div>
             </div>
-            <div class="hero-illustration">
-                <div class="floating-icons">
-                    <div class="floating-icon icon-chat">💬</div>
-                    <div class="floating-icon icon-call">📞</div>
-                    <div class="floating-icon icon-voice">🎤</div>
-                    <div class="floating-icon icon-message">✉️</div>
+        </div>
+    </section>
+
+    <section class="why-choose">
+        <div class="container">
+            <h2 class="section-title">왜 Inflow AI인가요?</h2>
+            <p class="section-subtitle">
+                기업이 일하는 방식을 근본적으로 바꾸기 위해 설계된 AI 플랫폼
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>완벽한 보안</h3>
+                    <p>사내 데이터 유출 걱정 없는 안전한 AI 서비스를 제공합니다.</p>
                 </div>
-                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9IiMxQTFBMUEiLz4KICA8Y2lyY2xlIGN4PSIyNTAiIGN5PSIyNTAiIHI9IjEyMCIgZmlsbD0iI0ZGRkZGRiIvPgogIDxwYXRoIGQ9Ik0yMDAgMjAwTDMwMCAzMDBNMzAwIDIwMEwyMDAgMzAwIiBzdHJva2U9IiMxQTFBMUEiIHN0cm9rZS13aWR0aD0iMjAiLz4KPC9zdmc+" alt="AI 상호작용 일러스트레이션">
+                
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>업무 자동화</h3>
+                    <p>반복 작업을 자동화하여 핵심 업무에 집중할 수 있습니다.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>정확성</h3>
+                    <p>휴먼 에러를 제거하고 업무 일관성을 확보합니다.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-star"></i></div>
+                    <h3>사용 편의성</h3>
+                    <p>자연어 기반의 직관적인 인터페이스로 누구나 쉽게 사용할 수 있습니다.</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="container">
-        <div class="features">
-            <div class="feature-card">
-                <h3>InFlow Basic</h3>
-                <p>웹페이지에 연계된 AI 챗봇 서비스로 고객 상담과 지식 검색을 자동화하세요.</p>
-                <a href="services.html#basic" class="btn">자세히 보기</a>
-            </div>
-            <div class="feature-card">
-                <h3>InFlow Assist</h3>
-                <p>RAG 기반의 업무 지원 AI 에이전트로 업무 효율을 극대화하세요.</p>
-                <a href="services.html#assist" class="btn">자세히 보기</a>
-            </div>
-            <div class="feature-card">
-                <h3>InFlow Studio</h3>
-                <p>기업 내부 AI 개발을 위한 프레임워크로 맞춤형 AI 솔루션을 구축하세요.</p>
-                <a href="services.html#studio" class="btn">자세히 보기</a>
+    <section class="cta-section">
+        <div class="container">
+            <h2>우리 회사에 딱 맞는 AI 솔루션</h2>
+            <p>지금 바로 전문가와 무료로 상담해보세요.</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-primary">전문가 상담하기</a>
+                <a href="experience-basic.html" class="btn btn-secondary">무료 체험하기</a>
             </div>
         </div>
+    </section>
 
-        <div class="demo-section">
-            <h2>실시간 데모 체험</h2>
-            <p>InFlow AI의 강력한 기능을 직접 체험해보세요</p>
-            <a href="contact.html" class="btn">데모 신청하기</a>
-        </div>
-
-        <div class="cta-section">
-            <h2>지금 바로 시작하세요</h2>
-            <p>InFlow AI와 함께 비즈니스의 미래를 그려보세요</p>
-            <a href="contact.html" class="btn">문의하기</a>
-        </div>
-    </div>
-
-    <footer style="background: rgba(0, 0, 0, 0.8); color: #666; padding: 50px 20px; margin-top: 40px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
-        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-            <div style="text-align: left;">
-                <h3 style="color: #fff; margin-bottom: 20px; font-size: 1.2em;">InFlow AI</h3>
-                <p style="color: #999; font-size: 0.9em; margin: 5px 0;">
-                    <i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i>
-                    (04781) 서울시 성동구 성수이로7길 7, 1103호<br>
-                    <span style="margin-left: 25px;">(한라시그마밸리2차)</span>
-                </p>
-                <p style="color: #999; font-size: 0.9em; margin: 5px 0;">
-                    <i class="fas fa-phone" style="margin-right: 10px;"></i>
-                    02-462-3737
-                </p>
-                <p style="color: #999; font-size: 0.9em; margin: 5px 0;">
-                    <i class="fas fa-envelope" style="margin-right: 10px;"></i>
-                    <a href="mailto:ch@wizbase.co.kr" style="color: #999; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#999'">ch@wizbase.co.kr</a>
-                </p>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Inflow AI</h3>
+                    <p>(04781) 서울시 성동구 성수이로7길 7, 1103호<br>
+                    (한라시그마밸리2차)</p>
+                    <p>전화: 02-462-3737<br>
+                    이메일: ch@wizbase.co.kr</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>서비스</h3>
+                    <p><a href="inflow-basic.html">Inflow Basic</a></p>
+                    <p><a href="inflow-assist.html">Inflow Assist</a></p>
+                    <p><a href="inflow-studio.html">Inflow Studio</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>체험</h3>
+                    <p><a href="experience-basic.html">Inflow Basic 체험</a></p>
+                    <p><a href="experience-assist.html">Inflow Assist 체험</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>지원</h3>
+                    <p><a href="contact.html">문의하기</a></p>
+                    <p><a href="mailto:ch@wizbase.co.kr">이메일 문의</a></p>
+                </div>
             </div>
-            <div style="text-align: right;">
-                <p style="color: #666; font-size: 0.9em; margin-top: 20px;">
-                    &copy; 2024 InFlow AI. All rights reserved.
-                </p>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Inflow AI. All rights reserved.</p>
             </div>
         </div>
     </footer>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </body>
 </html>
