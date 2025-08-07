@@ -103,15 +103,11 @@
         
         /* Main Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            background: linear-gradient(135deg, #000000 0%, #333333 100%);
             color: white;
-            padding: 150px 0 100px;
+            padding: 50px 0;
             text-align: center;
             position: relative;
-            overflow: hidden;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
         }
         
         .hero::before {
@@ -121,32 +117,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
-            animation: float 20s ease-in-out infinite;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
         }
         
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            animation: pulse 4s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
-        }
+
         
         .hero .container {
             max-width: 1200px;
@@ -157,56 +131,16 @@
         }
         
         .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            background: linear-gradient(45deg, #ffffff, #f0f0f0, #ffffff);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 3s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(255,255,255,0.3);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
         }
         
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        .hero .subtitle {
-            font-size: 1.5rem;
-            font-weight: 400;
+        .hero p {
+            font-size: 1.1rem;
             margin-bottom: 2rem;
-            opacity: 0.95;
-            color: #f8f9fa;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            animation: fadeInUp 1s ease-out 0.5s both;
-        }
-        
-        .hero .description {
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            margin-left: auto;
-            margin-right: auto;
             opacity: 0.9;
-            max-width: 800px;
-            line-height: 1.8;
-            color: #e9ecef;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.2);
-            animation: fadeInUp 1s ease-out 1s both;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
         
         .cta-buttons {
@@ -214,90 +148,41 @@
             gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
-            animation: fadeInUp 1s ease-out 1.5s both;
         }
         
         .btn {
-            padding: 1.2rem 2.5rem;
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
+            border-radius: 5px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s;
             display: inline-block;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #007bff;
             color: white;
-            border: 2px solid rgba(255,255,255,0.3);
         }
         
         .btn-primary:hover {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
-            border-color: rgba(255,255,255,0.5);
+            background: #0056b3;
         }
         
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
+            background: transparent;
             color: white;
-            border: 2px solid rgba(255,255,255,0.5);
-            backdrop-filter: blur(10px);
+            border: 2px solid white;
         }
         
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.8);
+            background: white;
+            color: #333;
         }
         
-        /* Floating elements for visual appeal */
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .floating-element {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            animation: floatElement 6s ease-in-out infinite;
-        }
-        
-        .floating-element:nth-child(1) {
-            top: 20%;
-            left: 10%;
+
             animation-delay: 0s;
         }
         
@@ -531,11 +416,7 @@
                 line-height: 1.2;
             }
             
-            .hero .subtitle {
-                font-size: 1.3rem;
-            }
-            
-            .hero .description {
+            .hero p {
                 font-size: 1.1rem;
                 padding: 0 1rem;
             }
@@ -559,9 +440,7 @@
                 font-size: 1rem;
             }
             
-            .floating-elements {
-                display: none;
-            }
+
         }
         
         @media (max-width: 480px) {
@@ -569,11 +448,7 @@
                 font-size: 2.2rem;
             }
             
-            .hero .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .hero .description {
+            .hero p {
                 font-size: 1rem;
             }
         }
@@ -601,15 +476,10 @@
     </header>
 
     <section class="hero">
-        <div class="floating-elements">
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-        </div>
         <div class="container">
             <h1>마치마치 내가 있는 것처럼<br>AI가 내 일을 알아서</h1>
-            <p class="subtitle">차세대 AI 플랫폼</p>
-            <p class="description">
+            <p>차세대 AI 플랫폼</p>
+            <p>
                 Inflow AI는 단순한 챗봇을 넘어, 비즈니스 전체를 혁신하는 AI 플랫폼입니다.<br>
                 개인화된 AI 경험부터 전문적인 업무 지원까지, 모든 것을 하나의 플랫폼에서 경험해보세요.
             </p>
